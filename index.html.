@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1769e8">
+<title>Service Connect | Find the right professional</title>
+<style>
+:root{--blue:#1769e8;--dark:#17243b;--muted:#758197;--bg:#f5f7fb;--line:#e8edf5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--dark)}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.top{background:white;padding:20px max(20px,calc((100% - 1050px)/2));border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-size:21px;font-weight:800;letter-spacing:-.6px}
+.logo{background:var(--blue);color:white;border-radius:12px;width:39px;height:39px;display:grid;place-items:center;font-size:23px}
+.brand span{color:var(--blue)}
+.wrap{max-width:1050px;margin:auto;padding:24px 18px 100px}
+.hero{background:linear-gradient(135deg,#1769e8,#438df5);color:white;padding:28px 22px;border-radius:23px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:180px;height:180px;border:35px solid #ffffff12;border-radius:50%;right:-65px;top:-55px}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;font-weight:bold;opacity:.85}
+h1{font-size:clamp(27px,5vw,42px);line-height:1.12;letter-spacing:-1.3px;margin:12px 0}
+.hero p{font-size:15px;line-height:1.6;max-width:480px;color:#eef5ff}
+.search{display:flex;gap:8px;background:white;padding:7px;border-radius:14px;margin-top:22px;position:relative;z-index:1}
+.search input{width:100%;min-width:0;border:0;outline:0;padding:12px;color:var(--dark)}
+.primary{background:var(--blue);border:0;color:white;padding:13px 17px;border-radius:10px;font-weight:bold}
+.search .primary{white-space:nowrap}
+.section{margin-top:30px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}
+h2{font-size:20px;margin:0;letter-spacing:-.4px}
+.small{font-size:13px;color:var(--muted)}
+.categories{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.cat{background:white;border:1px solid var(--line);border-radius:15px;padding:17px 5px;text-align:center;color:var(--dark)}
+.cat .emoji{font-size:27px;display:block;margin-bottom:10px}
+.cat b{font-size:12px}
+.cat.active{border-color:var(--blue);background:#edf4ff;color:var(--blue)}
+.filters{display:flex;gap:8px;overflow:auto;padding:2px 0 12px}
+.chip{border:1px solid var(--line);background:white;border-radius:30px;padding:9px 14px;white-space:nowrap;color:#566176;font-size:13px}
+.chip.active{background:#eaf2ff;border-color:#c5d9ff;color:var(--blue)}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.card{background:white;border:1px solid var(--line);border-radius:17px;padding:16px;min-width:0}
+.cardtop{display:flex;gap:12px;align-items:center}
+.avatar{width:51px;height:51px;flex-shrink:0;border-radius:14px;background:#eaf2ff;display:grid;place-items:center;font-size:27px}
+.card h3{font-size:15px;margin:0 0 5px}
+.card p{font-size:13px;color:var(--muted);margin:5px 0;line-height:1.45}
+.rating{font-size:12px;color:#8a6500;margin-top:6px}
+.tag{display:inline-block;background:#eef8f1;color:#237746;padding:5px 8px;border-radius:7px;font-size:11px;margin:12px 0}
+.outline{border:1px solid #cbdcff;background:white;color:var(--blue);padding:11px;border-radius:10px;width:100%;font-weight:bold}
+.card .outline{margin-top:5px}
+.empty{padding:28px;background:white;border-radius:15px;text-align:center;color:var(--muted);grid-column:1/-1}
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.trust div{background:white;border:1px solid var(--line);border-radius:13px;padding:14px 10px;text-align:center;font-size:12px;color:#59667c}
+.trust b{display:block;font-size:19px;margin-bottom:7px}
+footer{text-align:center;color:var(--muted);font-size:12px;line-height:1.8;padding:25px 10px}
+.nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:center;background:#ffffffed;border-top:1px solid var(--line);padding:9px 10px calc(9px + env(safe-area-inset-bottom));z-index:5;backdrop-filter:blur(12px)}
+.navinner{width:min(550px,100%);display:flex;justify-content:space-around}
+.nav button{border:0;background:none;color:#7b879a;font-size:11px;min-width:55px;padding:4px}
+.nav button span{display:block;font-size:21px;margin-bottom:4px}
+.nav button.active{color:var(--blue);font-weight:bold}
+.view{display:none}
+.view.active{display:block}
+.panel{background:white;border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:20px}
+.panel h2{margin-bottom:12px}
+.field{margin:15px 0}
+.field label{display:block;font-size:13px;font-weight:bold;margin-bottom:7px}
+.field input,.field select,.field textarea{width:100%;border:1px solid #dce3ee;border-radius:10px;padding:13px;background:white;color:var(--dark)}
+.full{width:100%;margin-top:7px}
+.back{border:0;background:none;color:var(--blue);padding:0 0 16px;font-weight:bold}
+.note{background:#fff8e8;border-radius:10px;padding:12px;color:#7b5c19;font-size:12px;line-height:1.5;margin-top:12px}
+@media(max-width:540px){.categories{grid-template-columns:repeat(3,1fr)}.cards{grid-template-columns:1fr}.hero{padding:24px 18px}.wrap{padding-left:14px;padding-right:14px}.top{padding:14px}.trust div{font-size:11px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><div class="logo">↗</div><div>Service <span>Connect</span></div></div>
+</header>
+<main class="wrap">
+<section id="home" class="view active">
+  <div class="hero">
+    <div class="eyebrow">The right help, without the hassle</div>
+    <h1>Find the right person<br>for the job.</h1>
+    <p>Tell us what you need. Find service providers and take the next step with confidence.</p>
+    <form class="search" id="searchForm">
+      <input id="searchInput" placeholder="What service do you need?" aria-label="Search services">
+      <button class="primary">Search</button>
+    </form>
+  </div>
+
+  <section class="section">
+    <div class="section-head"><h2>Browse categories</h2><span class="small">Explore services</span></div>
+    <div class="categories" id="categories">
+      <button class="cat" data-cat="Home"><span class="emoji">🏠</span><b>Home</b></button>
+      <button class="cat" data-cat="Property"><span class="emoji">🏡</span><b>Property</b></button>
+      <button class="cat" data-cat="Auto"><span class="emoji">🚗</span><b>Auto</b></button>
+      <button class="cat" data-cat="Business"><span class="emoji">💼</span><b>Business</b></button>
+      <button class="cat" data-cat="Solar"><span class="emoji">☀️</span><b>Solar</b></button>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2 id="listTitle">Services to explore</h2><span class="small" id="resultCount"></span></div>
+    <div class="filters">
+      <button class="chip active" data-filter="All">All services</button>
+      <button class="chip" data-filter="Home">Home</button>
+      <button class="chip" data-filter="Property">Property</button>
+      <button class="chip" data-filter="Auto">Auto</button>
+      <button class="chip" data-filter="Business">Business</button>
+      <button class="chip" data-filter="Solar">Solar</button>
+    </div>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><h2>A simpler way to get started</h2></div>
+    <div class="trust">
+      <div><b>🔎</b>Explore services</div>
+      <div><b>📝</b>Explain your needs</div>
+      <div><b>🤝</b>Connect directly</div>
+    </div>
+  </section>
+</section>
+
+<section id="detail" class="view">
+  <div class="panel">
+    <button class="back" data-view="home">← Back to services</button>
+    <div id="detailContent"></div>
+  </div>
+</section>
+
+<section id="request" class="view">
+  <div class="panel">
+    <button class="back" data-view="home">← Back</button>
+    <h2>Request a quote</h2>
+    <p class="small">Tell us a little about the job so the right business can understand what you need.</p>
+    <form id="quoteForm">
+      <div class="field"><label for="serviceName">Service</label><input id="serviceName" required></div>
+      <div class="field"><label for="jobLocation">Your area</label><input id="jobLocation" placeholder="e.g. Saldanha or Vredenburg" required></div>
+      <div class="field"><label for="jobDescription">What do you need done?</label><textarea id="jobDescription" rows="4" placeholder="Describe the job in a few words" required></textarea></div>
+      <button class="primary full">Continue</button>
+    </form>
+    <div class="note">Demo only: this form does not send or save your details yet. We’ll connect customer accounts and quote requests after the backend is configured.</div>
+  </div>
+</section>
+
+<section id="account" class="view">
+  <div class="panel">
+    <h2>Your account</h2>
+    <p class="small">Sign-in and registration will be enabled when the secure account system is connected.</p>
+    <form id="accountForm">
+      <div class="field"><label for="fullName">Your name</label><input id="fullName" placeholder="Full name" required></div>
+      <div class="field"><label for="email">Email address</label><input id="email" type="email" placeholder="you@example.com" required></div>
+      <button class="primary full">Continue</button>
+    </form>
+    <div id="accountMessage" class="note">Preview only. Your details are not sent or stored.</div>
+  </div>
+</section>
+
+<section id="about" class="view">
+  <div class="panel">
+    <h2>About Service Connect</h2>
+    <p>Finding the right person for a job shouldn’t be a mission. Service Connect is being built to make it easier to explore services and connect with businesses that can help.</p>
+    <p class="small">We’re starting with services in the West Coast area, with the goal of growing across South Africa.</p>
+    <div class="note">We’re building the platform step by step. Listings shown in this demo are examples, not verified businesses.</div>
+  </div>
+</section>
+
+<footer>Service Connect · Find the right person for the job.<br>Demo website — example listings are not verified.</footer>
+</main>
+
+<nav class="nav" aria-label="Main navigation">
+ <div class="navinner">
+  <button class="active" data-view="home"><span>⌂</span>Home</button>
+  <button data-view="home" data-reset="true"><span>⌕</span>Explore</button>
+  <button data-view="request"><span>＋</span>Request</button>
+  <button data-view="account"><span>♙</span>Account</button>
+  <button data-view="about"><span>♡</span>About</button>
+ </div>
+</nav>
+
+<script>
+const services=[
+ {name:"Plumbing",cat:"Home",icon:"🔧",desc:"Repairs, leaks, installations and general plumbing."},
+ {name:"Electrical",cat:"Home",icon:"💡",desc:"Electrical repairs, fittings and maintenance."},
+ {name:"Cleaning",cat:"Home",icon:"🧹",desc:"Home and move-in or move-out cleaning."},
+ {name:"Painting",cat:"Home",icon:"🖌️",desc:"Interior, exterior and repainting jobs."},
+ {name:"Property services",cat:"Property",icon:"🏡",desc:"Help with property maintenance and related services."},
+ {name:"Garden services",cat:"Home",icon:"🌿",desc:"Garden maintenance, trimming and clean-ups."},
+ {name:"Mechanic",cat:"Auto",icon:"🚗",desc:"Vehicle maintenance, diagnostics and repairs."},
+ {name:"Tyre services",cat:"Auto",icon:"🛞",desc:"Tyre checks, replacements and related services."},
+ {name:"Bookkeeping",cat:"Business",icon:"📊",desc:"Help organising business records and accounts."},
+ {name:"Website design",cat:"Business",icon:"💻",desc:"Websites and online presence for your business."},
+ {name:"Solar installation",cat:"Solar",icon:"☀️",desc:"Explore solar and backup power services."},
+ {name:"Air conditioning",cat:"Home",icon:"❄️",desc:"Air conditioning installation and maintenance."}
+];
+let activeCategory="All",searchText="";
+const cards=document.getElementById("cards");
+function render(){
+ const found=services.filter(s=>(activeCategory==="All"||s.cat===activeCategory)&&(`${s.name} ${s.cat} ${s.desc}`).toLowerCase().includes(searchText.toLowerCase()));
+ document.getElementById("resultCount").textContent=found.length+" services";
+ document.getElementById("listTitle").textContent=searchText?"Search results":activeCategory==="All"?"Services to explore":activeCategory+" services";
+ cards.innerHTML=found.length?found.map((s,i)=>`<article class="card"><div class="cardtop"><div class="avatar">${s.icon}</div><div><h3>${s.name}</h3><p>${s.cat} services</p></div></div><p>${s.desc}</p><span class="tag">Explore service</span><button class="outline" data-service="${services.indexOf(s)}">View details</button></article>`).join(""):`<div class="empty">No matching services found. Try another search or category.</div>`;
+ document.querySelectorAll(".cat").forEach(b=>b.classList.toggle("active",b.dataset.cat===activeCategory));
+ document.querySelectorAll(".chip").forEach(b=>b.classList.toggle("active",b.dataset.filter===activeCategory));
+}
+function showView(id){
+ document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===id));
+ document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===id));
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+function openDetail(index){
+ const s=services[index];
+ document.getElementById("detailContent").innerHTML=`<div class="avatar">${s.icon}</div><h2 style="margin-top:18px">${s.name}</h2><p class="small">${s.cat} services</p><p>${s.desc}</p><div class="note">This is a service category example, not a verified business listing. Real business profiles will be added as the platform develops.</div><button class="primary full" id="requestThis">Request a quote</button>`;
+ document.getElementById("requestThis").onclick=()=>{document.getElementById("serviceName").value=s.name;showView("request")};
+ showView("detail");
+}
+document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
+document.querySelectorAll("[data-cat]").forEach(b=>b.addEventListener("click",()=>{activeCategory=b.dataset.cat;searchText="";document.getElementById("searchInput").value="";render();document.getElementById("cards").scrollIntoView({behavior:"smooth",block:"start"})}));
+document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>{activeCategory=b.dataset.filter;render()}));
+cards.addEventListener("click",e=>{const b=e.target.closest("[data-service]");if(b)openDetail(Number(b.dataset.service))});
+document.getElementById("searchForm").addEventListener("submit",e=>{e.preventDefault();searchText=document.getElementById("searchInput").value.trim();activeCategory="All";render();cards.scrollIntoView({behavior:"smooth",block:"start"})});
+document.getElementById("quoteForm").addEventListener("submit",e=>{e.preventDefault();showView("account");document.getElementById("accountMessage").textContent="Demo only: the next step will be customer registration. No information has been sent or stored."});
+document.getElementById("accountForm").addEventListener("submit",e=>{e.preventDefault();document.getElementById("accountMessage").textContent="Thanks! This is a preview only. Account creation is not connected yet, and your details have not been sent or stored."});
+render();
+</script>
+</body>
+</html>
